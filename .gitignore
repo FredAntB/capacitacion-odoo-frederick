@@ -5,6 +5,8 @@
 *.py[co]
 #emacs backup files
 *~
+#odoo config files
+*.cfg
 # not tracked subdirectories
 /env/
 /src/
