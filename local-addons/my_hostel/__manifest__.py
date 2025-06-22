@@ -11,7 +11,7 @@
     'category': 'Uncategorized',
     'version': '17.0.1.0.0',
     'depends': ['base'],
-    'data': [ "security/hostel_security.xml", "security/ir.model.access.csv", 'views/hostel.xml']
+    'data': [ "security/hostel_security.xml", "security/ir.model.access.csv", "views/hostel.xml" ],
     'assets': {
         'web.assets_backend': [
             'web/static/src/xml/**/*',
