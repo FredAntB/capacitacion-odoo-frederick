@@ -24,6 +24,8 @@ class Hostel(models.Model):
     other_info = fields.Text("Other Information", help="Enter more information")
     description = fields.Html('Description')
     hostel_rating = fields.Float('Hostel Average Rating', digits="Rating Value") #digits=(14, 4))
+
+    category_id = fields.Many2one('hostel.category')
     
     @api.depends('hostel_code')
     def _compute_display_name(self):
