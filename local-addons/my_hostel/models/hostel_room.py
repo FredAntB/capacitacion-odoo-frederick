@@ -2,6 +2,7 @@ from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 class HostelRoom(models.Model):
         _name = "hostel.room"
+        _inherit = ['base.archive']
         _description = "Hostel Room"
         _order = "room_no"
         _sql_constraints = [
