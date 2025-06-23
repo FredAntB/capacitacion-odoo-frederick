@@ -60,6 +60,11 @@
                                         <group>
                                                 <field name="description"/>
                                         </group>
+                                        <group>
+                                                <button name="make_available" string="Make Avaiable" type="object"/>
+                                                <button name="make_closed" string="Make Borrowed" type="object"/>
+                                                <field name="state" widget="statusbar"/>
+                                        </group>
                                 </group>
                         </sheet>
                 </form>

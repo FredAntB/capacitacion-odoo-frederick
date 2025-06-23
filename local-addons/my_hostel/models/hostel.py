@@ -1,4 +1,7 @@
 from odoo import fields, models, api
+from odoo.exceptions import UserError
+from odoo.tools.translate import _
+
 class Hostel(models.Model):
     _name = 'hostel.hostel'
     _description = "Information about hostel"
@@ -30,6 +33,12 @@ class Hostel(models.Model):
     ref_doc_id = fields.Reference(
             selection='_referencable_models',
             string='reference Document')
+
+    state = fields.Selection([
+        ('draft', 'Unavailable'),
+        ('available', 'Available'),
+        ('closed', 'Closed')],
+        'State', default="draft")
     
     @api.depends('hostel_code')
     def _compute_display_name(self):
@@ -44,3 +53,23 @@ class Hostel(models.Model):
         models = self.env['ir.model'].search([
             ('field_id.name', '=', 'message_ids')])
         return [(x.model, x.name) for x in models]
+
+    @api.model
+    def is_allowed_transition(self, old_state, new_state):
+        allowed = [('draft', 'available'),
+                   ('available', 'closed'),
+                   ('closed', 'draft')]
+        return (olds_state, new_state) in allowed
+
+    def change_state(self, new_state):
+        for room in self:
+            if room.is_allowed_transitio(room.state, new_state):
+                room.state = new_state
+            else:
+                msg = _('Moving from $s to %s is not allowed') % (room.state, new_state)
+                raise UserError(msg)
+
+    def make_available(self):
+        self.change_state('available')
+    def make_closed(self):
+        self.change_state('closed')
