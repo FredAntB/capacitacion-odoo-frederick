@@ -10,7 +10,7 @@ class ResPartner(models.Model):
         for partner in self:
             partner.count_assing_room = len(partner.assign_room_ids)
 
-class BaseArchive()models.AbstractModel:
+class BaseArchive(models.AbstractModel):
     _name = 'base.archive'
     active = fields.Boolean(default=True)
 

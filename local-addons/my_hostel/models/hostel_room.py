@@ -15,14 +15,16 @@ class HostelRoom(models.Model):
         rent_amount = fields.Monetary('Rent Amount', help="Enter rent amount per month") # optional attribute: currency_field='currency_id' in case currency field have another name then 'currency_id'
         hostel_id = fields.Many2one("hostel.hostel", "hostel", help="Name of hostel")
         student_ids = fields.One2many("hostel.student", "room_id", string="Students", help="Enter students")
-        hostel_amenities_ids = fields.Many2many("hostel.amenities", "hostel_room_amenities_rel", "room_id", "amenity_id", string="Amenities", domain="[('active', '=', True)]", help="Select hostel room amenities")
+        #hostel_amenities_ids = fields.Many2many("hostel.amenities", "hostel_room_amenities_rel", "room_id", "amenity_id", string="Amenities", domain="[('active', '=', True)]", help="Select hostel room amenities")
+        # current fix for proper inheritance
+        hostel_amenities_ids = fields.Many2many("hostel.amenities", string="Amenities", domain="[('active', '=', True)]", help="Select hostel room amenities")
 
         student_per_room = fields.Integer("Student Per room", required=True, help="Students allocated per room")
         availability = fields.Float(compute="_compute_check_availability", store=True, string="Availability", help="Room availability in hostel")
 
         admission_date = fields.Date("Admission Date", help="Date of admission in hostel", default=fields.Datetime.today)
         discharge_date = fields.Date("Discharge Date", help="Date on which student discharge")
-        duration = fields.Integer("Durastion", compute="_compute_check_duration", inverse="_imverse_duration", help="Enter duration of living")
+        duration = fields.Integer("Duration", compute="_compute_check_duration", inverse="_inverse_duration", help="Enter duration of living")
 
         @api.depends("admission_date", "discharge_date")
         def _compute_check_duration(self):
@@ -36,7 +38,7 @@ class HostelRoom(models.Model):
                 if stu.discharge_date and stu.admission_date:
                     duration = (stu.discharge_date - stu.admission_date).days
                     if duration != stu.duration:
-                            stu.discharge_date = (syu.admission_date + timedelta(days=stu.duration)).strftime('%Y-%m-%d')
+                            stu.discharge_date = (stu.admission_date + timedelta(days=stu.duration)).strftime('%Y-%m-%d')
 
         @api.depends("student_per_room", "student_ids")
         def _compute_check_availability(self):
