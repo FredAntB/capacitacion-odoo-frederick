@@ -10,6 +10,14 @@ class ResPartner(models.Model):
         for partner in self:
             partner.count_assing_room = len(partner.assign_room_ids)
 
+    def find_partner(self):
+        PartnerObj = self.env['res.partner']
+        domain = [
+            '&', ('name', 'ilike', 'SerpentCS'),
+                 ('company_id.name', '=', 'SCS')
+        ]
+        partner = PartnerObj.search(domain)
+
 class BaseArchive(models.AbstractModel):
     _name = 'base.archive'
     active = fields.Boolean(default=True)

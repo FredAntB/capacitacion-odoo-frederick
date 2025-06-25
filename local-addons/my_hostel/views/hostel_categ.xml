@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="action_hostel_category" model="ir.actions.act_window">
+                <field name="name">Category</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">hostel.room.category</field>
+                <field name="view_mode">tree,form</field>
+                <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create Hostel Category.</p>
+                </field>
+        </record>
+
+        <menuitem id="hostel_category_menu" name="Hostel Room Category" action="my_hostel.action_hostel_category" parent="hostel_main_menu" sequence="3"/>
+
+        <record id="view_hostel_room_category_form_view" model="ir.ui.view">
+                <field name="name">hostel.room.category.form.view</field>
+                <field name="model">hostel.room.category</field>
+                <field name="arch" type="xml">
+                <form string="Category">
+                        <sheet>
+                                <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="parent_id"/>
+                                <field name="child_ids"/>
+                                <field name="parent_path"/>
+                                <button name="create_categories" string="Create Categories" type="object"/>
+                                </group>
+                        </sheet>
+                </form>
+        </field>
+</record>
+
+<record id="view_hostel_room_category_tree_view" model="ir.ui.view">
+        <field name="name">hostel.room.category.tree.view</field>
+        <field name="model">hostel.room.category</field>
+        <field name="arch" type="xml">
+                <tree>
+                        <field name="name"/>
+                        <field name="parent_id"/>
+                </tree>
+        </field>
+</record>
+
+<record id="view_hostel_room_category_seach_view" model="ir.ui.view">
+        <field name="name">Hostel Category Search</field>
+        <field name="model">hostel.room.category</field>
+        <field name="arch" type="xml">
+                <search>
+                        <field name="name"/>
+                        <field name="parent_id"/>
+                </search>
+        </field>
+</record>
+</odoo>

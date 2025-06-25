@@ -3,4 +3,7 @@ access_hostel_manager_id,access.hostel.manager,my_hostel.model_hostel_hostel,my_
 access_hostel_user_id,access.hostel.user,my_hostel.model_hostel_hostel,my_hostel.group_hostel_user,1,0,0,0
 
 access_hostel_room_manager_id,access.hostel.room.manager,my_hostel.model_hostel_room,my_hostel.group_hostel_manager,1,1,1,1
-access_hostel_room_user_id,access.hostel.room.user,my_hostel.model_hostel_room,my_hostel.group_hostel_user,1,0,0,0
+access_hostel_room_user_id,access.hostel.room.user,my_hostel.model_hostel_room,my_hostel.group_hostel_user,1,1,0,0
+
+access_hostel_room_category_manager_id,access.hostel.room.category.manager,my_hostel.model_hostel_room_category,my_hostel.group_hostel_manager,1,1,1,1
+access_hostel_room_category_user_id,access.hostel.room.category.user,my_hostel.model_hostel_room_category,my_hostel.group_hostel_user,1,0,0,0
