@@ -164,6 +164,13 @@ class HostelRoom(models.Model):
                     )
             return grouped_result
 
+        def action_remove_room_members(self):
+            student.with_context(is_hoste_room=True).action_remove_room()
+            # alternative options
+            # new_context = self.env.context.copy()
+            # new_context.update({'is_hostel_room': True})
+            # student.with_context(new_context)
+
 class HostelRoomMember(models.Model):
     _name = 'hostel.room.member'
     _inherits = {'res.partner': 'partner_id'}

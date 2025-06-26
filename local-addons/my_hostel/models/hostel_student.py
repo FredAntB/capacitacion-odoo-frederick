@@ -43,3 +43,7 @@ class HostelStudent(models.Model):
             "room_category_id": self.env.ref("my_hostel.single_room_categ").id,
             "hostel_id": self.hostel_id.id
             })
+    
+    def action_remove_room(self):
+        if self.env.context.get("is_hostel_room"):
+            self.room_id = False
