@@ -7,3 +7,6 @@ access_hostel_room_user_id,access.hostel.room.user,my_hostel.model_hostel_room,m
 
 access_hostel_room_category_manager_id,access.hostel.room.category.manager,my_hostel.model_hostel_room_category,my_hostel.group_hostel_manager,1,1,1,1
 access_hostel_room_category_user_id,access.hostel.room.category.user,my_hostel.model_hostel_room_category,my_hostel.group_hostel_user,1,0,0,0
+
+access_hostel_student_manager_id,access.hostel.student.manager,my_hostel.model_hostel_student,my_hostel.group_hostel_manager,1,1,1,1
+access_hostel_student_user_id,access.hostel.student.user,my_hostel.model_hostel_student,my_hostel.group_hostel_user,1,0,0,0

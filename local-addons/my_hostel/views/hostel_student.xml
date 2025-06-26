@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="action_hostel_student" model="ir.actions.act_window">
+                <field name="name">Student</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">hostel.student</field>
+                <field name="view_mode">tree,form</field>
+                <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create Hostel Student.</p>
+                </field>
+        </record>
+
+        <menuitem id="hostel_student_menu" name="Hostel Student" action="my_hostel.action_hostel_student" parent="hostel_main_menu" sequence="4"/>
+
+        <record id="view_hostel_student_form_view" model="ir.ui.view">
+                <field name="name">hostel.student.form.view</field>
+                <field name="model">hostel.student</field>
+                <field name="arch" type="xml">
+                <form string="Student">
+                        <sheet>
+                                <group>
+                                        <group>
+                                        <button name="action_assign_room"
+                                                string="Assign Room"
+                                                type="object"
+                                                class="btn-primary"
+                                        />
+                                        </group>
+                                        <group>
+                                        <field name="status" widget="statusbar"/>
+                                        </group>
+                                </group>
+                                <group>
+                                <field name="name"/>
+                                <field name="gender"/>
+                                <field name="active" type="Boolean"/>
+                                <field name="room_id"/>
+                                <field name="hostel_id"/>
+                                <field name="partner_id"/>
+                                <field name="admission_date" type="Date"/>
+                                <field name="discharge_date" type="Date"/>
+                                <field name="duration" type="Integer"/>
+                                </group>
+                        </sheet>
+                </form>
+        </field>
+</record>
+
+<record id="view_hostel_student_tree_view" model="ir.ui.view">
+        <field name="name">hostel.student.tree.view</field>
+        <field name="model">hostel.student</field>
+        <field name="arch" type="xml">
+                <tree>
+                        <field name="name"/>
+                        <field name="room_id"/>
+                </tree>
+        </field>
+</record>
+
+<record id="view_hostel_student_seach_view" model="ir.ui.view">
+        <field name="name">Hostel Student Search</field>
+        <field name="model">hostel.student</field>
+        <field name="arch" type="xml">
+                <search>
+                        <field name="name"/>
+                        <field name="room_id"/>
+                </search>
+        </field>
+</record>
+</odoo>
