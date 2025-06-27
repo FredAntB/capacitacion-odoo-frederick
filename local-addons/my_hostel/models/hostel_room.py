@@ -1,5 +1,8 @@
 from odoo import fields, models, api, exceptions
 from odoo.exceptions import ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
 class HostelRoom(models.Model):
         _name = "hostel.room"
         _inherit = ['base.archive']
@@ -143,19 +146,6 @@ class HostelRoom(models.Model):
                 return result
 
         @api.model
-        def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
-            args = [] if args is None else args.copy()
-            if not(name == '' and operator == 'ilike'):
-                args += ['|', '|',
-                         ('name', operator, name),
-                         ('isbn', operator, name),
-                         ('author_ids.name', operator, name)
-                         ]
-            return super(HostelRoom, self)._name_search(
-                    name=name, args=args, operator=operator,
-                    limit=limit, name_get_uid=name_get_uid)
-
-        @api.model
         def _get_average_cost(self):
             grouped_result = self.read_group(
                     [('cost_price', "!=", False)], # Domain
@@ -170,6 +160,20 @@ class HostelRoom(models.Model):
             # new_context = self.env.context.copy()
             # new_context.update({'is_hostel_room': True})
             # student.with_context(new_context)
+
+        def action_category_with_amount(self):
+            self.env.cr.execute("""
+                SELECT
+                    hrc.name,
+                    hrc.amount
+                FROM
+                    hostel_room AS hostel_room
+                JOIN
+                    hostel_room_category as hrc ON hrc.id = hostel_room.room_category_id
+                WHERE hostel_room.room_category_id = %(cate_id)s;""",
+                {'cate_id': self.room_category_id.id})
+            result = self.env.cr.fetchall()
+            _logger.warning("Hostel Room With Amount: %s", result)
 
 class HostelRoomMember(models.Model):
     _name = 'hostel.room.member'

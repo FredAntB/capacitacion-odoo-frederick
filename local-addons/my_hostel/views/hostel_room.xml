@@ -44,6 +44,10 @@
                                                         type="object"
                                                         class="btn-primary"
                                                 />
+                                        <button name="action_category_with_amount"
+                                                        string="Log Category With Amount"
+                                                        type="object"
+                                                        class="btn-primary"/>
                                 </group>
                         </sheet>
                 </form>
