@@ -1,47 +1,46 @@
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
-class HostelCategory(models.Model):
-    _name = "hostel.room.category"
+from odoo import fields, models, _
+
+class RoomCategory(models.Model):
+    _name = 'hostel.room.category'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _description = "Hostel Room Category"
+
     name = fields.Char('Category')
     description = fields.Text('Description')
     parent_id = fields.Many2one(
-            'hostel.room.category',
-            string='Parent Category',
-            ondelete='restrict',
-            index=True)
+        'hostel.room.category',
+        string='Parent Category',
+        ondelete='restrict',
+        index=True
+    )
     child_ids = fields.One2many(
-            'hostel.room.category', 'parent_id',
-            string='Child Categories')
-    _name = "hostel.room.category"
+        'hostel.room.category', 'parent_id',
+        string='Child Categories')
+    hostel_room_ids = fields.One2many(
+        'hostel.room', 'hostel_room_category_id',
+        string='Hostel Room')
+    related_hostel_room = fields.Integer(compute='_compute_related_hostel_room')
+    date_end = fields.Datetime(string='Ending Date', index=True, copy=False)
+    date_assign = fields.Datetime(string='Assigning Date', copy=False,)
+    address = fields.Char(strin="Address")
 
-    _parent_store = True
-    _parent_name = "parent_id" # optional if field is 'parent_id'
-    parent_path = fields.Char(index=True, unaccent=False)
+    def _compute_related_hostel_room(self):
+        for record in self:
+            record.related_hostel_room = self.env['hostel.room'].search_count([
+                ('hostel_room_category_id', '=', record.id),
+            ])
 
-    @api.constrains('parent_id')
-    def _check_hierarchy(self):
-        if not self._check_recursion():
-            raise models.ValidationError(
-                    'Error! you cannot create recursive categories.')
+    def action_open_related_hostel_room(self):
+        related_hostel_room_ids = self.env['hostel.room'].search([
+                ('hostel_room_category_id', '=', self.id),
+            ]).ids
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Hostel Room'),
+            'res_model': 'hostel.room',
+            'view_type': 'list',
+            'view_mode': 'list',
+            'views': [[False, 'list'], [False, 'form']],
+            'domain': [('id', 'in', related_hostel_room_ids)],
+        }
 
-    def create_categories(self):
-        categ1 = {
-                'name': 'Child category 1',
-                'description': 'Description for child 1'
-                }
-        categ2 = {
-                'name': 'Child category 2',
-                'description': 'Description for child 2'
-                }
-        parent_category_val = {
-                'name': 'Parent category',
-                'description': 'Description for parent category',
-                'child_ids': [
-                    (0, 0, categ1),
-                    (0, 0, categ2),
-                    ]
-                }
-        self.env['hostel.room.category'].create(parent_category_val)
-        # You can also create a category in batches
-        # multiple_records = self.env['hostel.room.category'].create([categ1, categ2])
-        return True

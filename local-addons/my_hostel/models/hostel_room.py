@@ -42,6 +42,12 @@ class HostelRoom(models.Model):
             ('available', 'Available'),
             ('closed', 'Closed')],
             'State', default="draft")
+        hostel_room_category_id = fields.Many2one(
+            'hostel.room.category',
+            string='Parent Category',
+            ondelete='restrict',
+            index=True
+        )
 
         @api.depends("admission_date", "discharge_date")
         def _compute_check_duration(self):
