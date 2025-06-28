@@ -4,3 +4,7 @@ class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     group_hostel_user = fields.Boolean(string="Hostel User", implied_group='my_hostel.group_hostel_user')
+    module_my_hostel_extras = fields.Boolean(string='Hostel Extra Features')
+    digest_emails = fields.Boolean(
+            string = "Digest Emails",
+            config_parameters = 'digest.default_digest_emails')

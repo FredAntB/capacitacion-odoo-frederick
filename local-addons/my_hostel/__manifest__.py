@@ -25,6 +25,9 @@
             'web/static/src/xml/**/*',
         ],
     },
+    'post_init_hook': 'add_room_hook',
+    'pre_init_hook': 'pre_init_hook_hostel',
+    'uninstall_hook': 'uninstall_hook_user',
     'demo': ['demo.xml'],
     'installable': True, # Good practice to explicitly state this
     'application': True, # If it's a primary app, set to True
