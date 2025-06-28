@@ -1,10 +1,10 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 from datetime import timedelta
+from odoo.tests.common import Form
 
 class HostelStudent(models.Model):
     _name = "hostel.student"
-    #_inherits = {'res.partner': 'partner_id'}
     _description = "Hostel Student Information"
 
     name = fields.Char("Student Name")
@@ -63,3 +63,17 @@ class HostelStudent(models.Model):
     def action_remove_room(self):
         if self.env.context.get("is_hostel_room"):
             self.room_id = False
+
+    @api.onchange('admission_date', 'discharge_date')
+    def onchange_duration(self):
+        if self.discharge_date and self.admission_date:
+            self.duration = (self.discharge_date.year - self.admission_date.year) * 12 + (self.discharge_date.month - self.admission_date.month)
+        duration = fields.Integer("Duration", compute="onchange_duration", inverse="_inverse_duration", help="Enter duration living")
+
+    def return_room(self):
+        self.ensure_one()
+        wizard = self.env['assign.room.student.wizard']
+        with Form(wizard) as return_form:
+            return_form.room_id = self.env.ref('my_hoste.101_room')
+            record = return_form.save()
+            record.with_context(active_id=self.id).add_room_in_student()
