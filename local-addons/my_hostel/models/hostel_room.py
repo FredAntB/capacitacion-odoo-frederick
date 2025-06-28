@@ -36,6 +36,12 @@ class HostelRoom(models.Model):
 
         cost_price = fields.Float('Room Cost')
         category_id = fields.Many2one('hostel.room.category')
+        description = fields.Html('Description')
+        state = fields.Selection([
+            ('draft', 'Unavailable'),
+            ('available', 'Available'),
+            ('closed', 'Closed')],
+            'State', default="draft")
 
         @api.depends("admission_date", "discharge_date")
         def _compute_check_duration(self):
@@ -174,6 +180,20 @@ class HostelRoom(models.Model):
                 {'cate_id': self.room_category_id.id})
             result = self.env.cr.fetchall()
             _logger.warning("Hostel Room With Amount: %s", result)
+
+        def change_state(self, new_state):
+            for room in self:
+                if room.is_allowed_transition(room.state, new_state):
+                    room.state = new_state
+                else:
+                    message = _('Moving from %s to %s is not allowed') % (room.state, new_state)
+                    raise UserError(message)
+
+        def make_available(self):
+            self.change_state('available')
+
+        def make_closed(self):
+            self.change_state('closed')
 
 class HostelRoomMember(models.Model):
     _name = 'hostel.room.member'
