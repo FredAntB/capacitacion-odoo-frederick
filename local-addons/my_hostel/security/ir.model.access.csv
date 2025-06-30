@@ -13,3 +13,6 @@ access_hostel_student_user_id,access.hostel.student.user,my_hostel.model_hostel_
 
 access_assign_room_student_wizard_manager,access.assign.room.student.wizard.manager,my_hostel.model_assign_room_student_wizard,my_hostel.group_hostel_manager,1,1,1,1
 access_assign_room_student_wizard,access.assign.room.student.wizard.user,my_hostel.model_assign_room_student_wizard,my_hostel.group_hostel_user,1,0,0,0
+
+acl_hostel, hostel_hostel_default, model_hostel_hostel, base.group_user, 1, 0, 0, 0
+acl_hostel_manager, hostel_manager, model_hostel_hostel, my_hostel.group_hostel_manager, 1, 1, 1, 1

@@ -8,12 +8,15 @@
     # and longer descriptions are put in a README.md or similar.
     'author': "Your name",
     'website': "http://www.example.com",
-    'category': 'Uncategorized',
+    'category': 'Hostel',
     'version': '17.0.1.0.0',
     'depends': ['base', 'mail', 'web_map'],
     'data': [ "security/hostel_security.xml",
+             "security/groups.xml",
              "views/assign_room_student_wizard.xml",
              "security/ir.model.access.csv",
+             "security/groups.xml",
+             "security/security_rules.xml",
              "views/hostel.xml",
              "views/hostel_categ.xml",
              "views/hostel_room.xml",
@@ -25,9 +28,6 @@
             'web/static/src/xml/**/*',
         ],
     },
-    'post_init_hook': 'add_room_hook',
-    'pre_init_hook': 'pre_init_hook_hostel',
-    'uninstall_hook': 'uninstall_hook_user',
     'demo': ['demo.xml'],
     'installable': True, # Good practice to explicitly state this
     'application': True, # If it's a primary app, set to True
