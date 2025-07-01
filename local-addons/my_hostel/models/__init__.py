@@ -5,3 +5,4 @@ from . import hostel_student
 from . import hostel_amenities
 from . import hostel_categ
 from . import res_config_settings
+from . import sample_auth_http

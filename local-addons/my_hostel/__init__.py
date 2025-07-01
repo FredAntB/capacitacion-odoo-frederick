@@ -1,5 +1,6 @@
 from . import models
 from . import wizards
+from . import controllers
 from odoo import api, SUPERUSER_ID
 
 def add_room_hook(cr, registry):
