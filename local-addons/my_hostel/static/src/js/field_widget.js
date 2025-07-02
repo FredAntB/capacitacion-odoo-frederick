@@ -2,29 +2,30 @@
 
 import { Component, onWillStart , onWillUpdateProps} from "@odoo/owl";
 import { registry } from "@web/core/registry";
-import { renderToElement } from "@web/core/utils/render";
 
-export class CategColorField extends Component {
+class ColorPill extends Component {
+    static template = 'OWLColorPill';
+    pillClicked() {
+        this.props.onClickColorUpdated(this.props.color);
+    }
+}
+
+export class OWLCategColorField extends Component {
+    static supportedFieldTypes = ['integer'];
+    static template = 'OWLFieldColorPills';
+    static components = { ColorPill };
     setup() {
         this.totalColors = [1,2,3,4,5,6];
-        onWillStart(() => {
-            this.loadCategInformation();
+        onWillStart(async() => {
+            await this.loadCategInformation();
         });
-        onWillUpdateProps(() => {
-            this.loadCategInformation();
+        onWillUpdateProps(async() => {
+            await this.loadCategInformation();
         });
         super.setup();
     }
-    clickPill(value) {
+    colorUpdated(value) {
         this.props.record.update({ [this.props.name]: value });
-    }
-    categInfo(ev){
-        var $target = $(ev.target);
-        var data = $target.data();
-        $target.parent().find(".categInformationPanel").html($(renderToElement("CategInformation",{
-            value: data.value,
-            'widget': this
-        })));
     }
     async loadCategInformation() {
         var self = this;
@@ -44,9 +45,7 @@ export class CategColorField extends Component {
         });
     }
 }
-CategColorField.template = "CategColorField";
-CategColorField.supportedTypes = ["integer"];
-registry.category("fields").add("category_color", {
-    component: CategColorField,
-});
 
+registry.category("fields").add("category_color", {
+    component: OWLCategColorField,
+});

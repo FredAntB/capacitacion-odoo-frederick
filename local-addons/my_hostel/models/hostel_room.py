@@ -1,5 +1,6 @@
 from odoo import fields, models
 
+
 class HostelRoom(models.Model):
 
     _name = "hostel.room"
@@ -14,11 +15,3 @@ class HostelRoom(models.Model):
     student_ids = fields.One2many("hostel.student", "room_id",
         string="Students", help="Enter students")
 
-class HostelRoomState(models.Model):
-    _name = 'hostel.room.stage'
-    _description = 'Room Stages'
-    _order = 'sequence,name'
-
-    name = fields.Char("Name")
-    sequence = fields.Integer("Sequence")
-    fold = fields.Boolean("Fold?")

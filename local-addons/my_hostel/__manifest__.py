@@ -29,16 +29,8 @@
         'web.assets_backend': [
             'my_hostel/static/src/scss/field_widget.scss',
             'my_hostel/static/src/js/field_widget.js',
-            'my_hostel/static/src/xml/field_widget.xml',
-            'my_hostel/static/src/js/m2m_group_arch_parser.js',
-            'my_hostel/static/src/js/my_hostel_tour.js',
-            'my_hostel/static/src/js/m2m_group_view.js',
-            'my_hostel/static/src/js/m2m_group_renderer.js',
-            'my_hostel/static/src/js/m2m_group_model.js',
-            'my_hostel/static/src/js/m2m_group_controller.js',
-            'my_hostel/static/src/xml/m2m_group_controller.xml',
-            'my_hostel/static/src/xml/m2m_group_renderer.xml',
-            'my_hostel/static/src/xml/m2m_group_view.xml'
+            "my_hostel/static/src/js/component.js",
+            'my_hostel/static/src/xml/field_widget.xml'
         ],
     },
     'demo': ['demo.xml'],
