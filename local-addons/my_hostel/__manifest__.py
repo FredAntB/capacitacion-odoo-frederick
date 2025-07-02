@@ -22,6 +22,7 @@
              "views/hostel_amenities.xml",
              "views/hostel_room_stages_views.xml",
              "views/hostel_categ.xml",
+             "views/templates.xml",
              "data/data.xml",
              "data/room_stages.xml"],
     'assets': {

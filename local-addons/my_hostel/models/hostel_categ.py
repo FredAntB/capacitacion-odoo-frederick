@@ -22,3 +22,4 @@ class HostelCategory(models.Model):
     def _check_hierarchy(self):
         if not self._check_recursion():
             raise ValidationError(_('Error! You cannot create recursive categories.'))
+    color = fields.Integer()
