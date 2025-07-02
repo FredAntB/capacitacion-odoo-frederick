@@ -2,7 +2,17 @@ from odoo import http
 from odoo.http import request
 from odoo.addons.website.controllers.main import Website
 
+
 class Main(http.Controller):
+    @http.route('/demo_page', type='http', auth='none')
+    def demo_page(self):
+        image_url = '/my_hostel/static/src/image/odoo.png'
+        html_result = """<html>
+            <body>
+                <img src="%s"/>
+            </body>
+        </html>""" % image_url
+        return html_result
 
     @http.route('/my_hostel/students', type='http', auth='none')
     def students(self):
