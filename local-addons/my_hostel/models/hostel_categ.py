@@ -1,25 +1,17 @@
-from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models
 
-class HostelCategory(models.Model):
-    _name = "hostel.category"
-    _description = "Hostel Categories"
-    _parent_store = True
-    _parent_name = "parent_id" # optional if field is 'parent_id'
+class RoomCategory(models.Model):
+    _name = 'hostel.room.category'
+    _description = "Hostel Room Category"
 
     name = fields.Char('Category')
+    description = fields.Text('Description')
     parent_id = fields.Many2one(
-        'hostel.category',
+        'hostel.room.category',
         string='Parent Category',
         ondelete='restrict',
-        index=True)
-    parent_path = fields.Char(index=True, unaccent=False)
+        index=True
+    )
     child_ids = fields.One2many(
-        'hostel.category', 'parent_id',
+        'hostel.room.category', 'parent_id',
         string='Child Categories')
-
-    @api.constrains('parent_id')
-    def _check_hierarchy(self):
-        if not self._check_recursion():
-            raise ValidationError(_('Error! You cannot create recursive categories.'))
-    color = fields.Integer()
