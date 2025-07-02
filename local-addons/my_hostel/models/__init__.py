@@ -6,3 +6,6 @@ from . import hostel_amenities
 from . import hostel_categ
 from . import res_config_settings
 from . import sample_auth_http
+from . import ir_action_act_window
+from . import ir_ui_view
+from . import base
